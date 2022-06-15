@@ -1,1 +1,1 @@
-# sample-mobile-app
+# Sample React Native App
