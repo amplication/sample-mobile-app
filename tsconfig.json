@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@components/*": ["src/components/*"],
-    //   "@styles/*": ["src/components/styles/*"],
-    //   "@assets": ["public/assets"],
-    //   "@lib/*": ["src/lib/*"]
-    // },
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -22,13 +19,18 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-native",
     "incremental": true
   },
-  // "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }
