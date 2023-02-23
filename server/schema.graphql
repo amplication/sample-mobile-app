@@ -1,0 +1,203 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
+input Credentials {
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type MetaQueryPayload {
+  count: Float!
+}
+
+type Mutation {
+  createTask(data: TaskCreateInput!): Task!
+  createUser(data: UserCreateInput!): User!
+  deleteTask(where: TaskWhereUniqueInput!): Task!
+  deleteUser(where: UserWhereUniqueInput!): User!
+  login(credentials: Credentials!): UserInfo!
+  updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+}
+
+type Query {
+  _tasksMeta(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): MetaQueryPayload!
+  _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
+  task(where: TaskWhereUniqueInput!): Task
+  tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
+  user(where: UserWhereUniqueInput!): User
+  userInfo: UserInfo!
+  users(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
+}
+
+enum QueryMode {
+  Default
+  Insensitive
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Task {
+  completed: Boolean!
+  createdAt: DateTime!
+  id: String!
+  text: String!
+  uid: User
+  updatedAt: DateTime!
+}
+
+input TaskCreateInput {
+  completed: Boolean!
+  text: String!
+  uid: UserWhereUniqueInput
+}
+
+input TaskCreateNestedManyWithoutUsersInput {
+  connect: [TaskWhereUniqueInput!]
+}
+
+input TaskListRelationFilter {
+  every: TaskWhereInput
+  none: TaskWhereInput
+  some: TaskWhereInput
+}
+
+input TaskOrderByInput {
+  completed: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  text: SortOrder
+  uidId: SortOrder
+  updatedAt: SortOrder
+}
+
+input TaskUpdateInput {
+  completed: Boolean
+  text: String
+  uid: UserWhereUniqueInput
+}
+
+input TaskUpdateManyWithoutUsersInput {
+  connect: [TaskWhereUniqueInput!]
+  disconnect: [TaskWhereUniqueInput!]
+  set: [TaskWhereUniqueInput!]
+}
+
+input TaskWhereInput {
+  completed: BooleanFilter
+  id: StringFilter
+  text: StringFilter
+  uid: UserWhereUniqueInput
+}
+
+input TaskWhereUniqueInput {
+  id: String!
+}
+
+type User {
+  createdAt: DateTime!
+  firstName: String
+  id: String!
+  lastName: String
+  roles: JSON!
+  tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
+  updatedAt: DateTime!
+  username: String!
+}
+
+input UserCreateInput {
+  firstName: String
+  lastName: String
+  password: String!
+  roles: JSON!
+  tasks: TaskCreateNestedManyWithoutUsersInput
+  username: String!
+}
+
+type UserInfo {
+  accessToken: String
+  id: String!
+  roles: [String!]!
+  username: String!
+}
+
+input UserOrderByInput {
+  createdAt: SortOrder
+  firstName: SortOrder
+  id: SortOrder
+  lastName: SortOrder
+  password: SortOrder
+  roles: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
+}
+
+input UserUpdateInput {
+  firstName: String
+  lastName: String
+  password: String
+  roles: JSON
+  tasks: TaskUpdateManyWithoutUsersInput
+  username: String
+}
+
+input UserWhereInput {
+  firstName: StringNullableFilter
+  id: StringFilter
+  lastName: StringNullableFilter
+  tasks: TaskListRelationFilter
+  username: StringFilter
+}
+
+input UserWhereUniqueInput {
+  id: String!
+}
