@@ -32,6 +32,7 @@ type Mutation {
   deleteTask(where: TaskWhereUniqueInput!): Task!
   deleteUser(where: UserWhereUniqueInput!): User!
   login(credentials: Credentials!): UserInfo!
+  signup(credentials: Credentials!): UserInfo!
   updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -39,6 +40,7 @@ type Mutation {
 type Query {
   _tasksMeta(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): MetaQueryPayload!
   _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
+  me: User!
   task(where: TaskWhereUniqueInput!): Task
   tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
   user(where: UserWhereUniqueInput!): User
