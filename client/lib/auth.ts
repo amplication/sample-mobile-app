@@ -1,35 +1,67 @@
-import { Alert } from "react-native";
-import { createUrl, get, isStoredJwt, post, setStoredJwt } from "./http";
+import { gql, isStoredJwt, setStoredJwt, client } from "./apollo";
+
+const GET_ME = gql`
+    query me {
+        me {
+            id
+        }
+    }
+`;
 
 export const me = async () => {
     return (await isStoredJwt())
-        ? (await get(createUrl("api/me")).catch(() => null))?.data
+        ? (
+              await client
+                  .query({ query: GET_ME })
+                  .catch((error) => console.log(error))
+          )?.data.me
         : null;
 };
 
+const LOGIN = gql`
+    mutation login($credentials: Credentials!) {
+        login(credentials: $credentials) {
+            accessToken
+        }
+    }
+`;
+
 export const login = async (username: string, password: string) => {
     const result = (
-        await post(createUrl("api/login"), { username, password }).catch(
-            (error) => console.log(error)
-        )
-    )?.data;
+        await client
+            .mutate({
+                mutation: LOGIN,
+                variables: { credentials: { username, password } },
+            })
+            .catch((error) => console.log(error))
+    )?.data.login;
 
     if (!result) {
-        return Alert.alert("Could not login");
+        return alert("Could not login");
     }
     setStoredJwt(result.accessToken);
     return me();
 };
+const SIGNUP = gql`
+    mutation signup($credentials: Credentials!) {
+        signup(credentials: $credentials) {
+            accessToken
+        }
+    }
+`;
 
 export const signup = async (username: string, password: string) => {
     const result = (
-        await post(createUrl("api/signup"), { username, password }).catch(
-            (error) => console.log(error)
-        )
-    )?.data;
+        await client
+            .mutate({
+                mutation: SIGNUP,
+                variables: { credentials: { username, password } },
+            })
+            .catch((error) => console.log(error))
+    )?.data.signup;
 
     if (!result) {
-        return Alert.alert("Could not sign up");
+        return alert("Could not sign up");
     }
     setStoredJwt(result.accessToken);
     return me();
