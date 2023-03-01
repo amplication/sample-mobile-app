@@ -38,6 +38,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",
+        "@types/qs": "^6.9.7",
         "@types/react": "~18.0.24",
         "@types/react-native": "~0.70.6",
         "jest": "^26.6.3",

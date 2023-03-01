@@ -9,7 +9,7 @@ type Props = {
 
 const Task = ({ task, toggleCompleted }: Props) => {
     const handleToggle = () => {
-        toggleCompleted(task.id);
+        toggleCompleted(task);
     };
 
     return (
@@ -23,6 +23,7 @@ const Task = ({ task, toggleCompleted }: Props) => {
                 iconStyle={{ borderColor: "red" }}
                 innerIconStyle={{ borderWidth: 2 }}
                 onPress={handleToggle}
+                isChecked={task.completed}
             />
         </View>
     );

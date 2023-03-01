@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import { login, signup } from "../lib/auth";
 
+type User = {
+    id: string;
+    username: string;
+    firstName: string | null;
+    lastName: string | null;
+    roles: string[];
+    createdAt: string;
+    updatedAt: string;
+};
 interface AuthProps {
-    setUser: React.Dispatch<React.SetStateAction<undefined>>;
+    setUser: (user: User) => Promise<void>;
 }
 
 export default function Auth({ setUser }: AuthProps) {
